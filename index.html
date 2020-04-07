@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container">
+ <br>
+ <div class="jumbotron">
+ <h1 class="display-4">Choose your user name</h1>
+ <br>
+ <input id = "name" required class="form-control" placeholder="Name">
+ <br>
+ <br>
+ <button id="submit" class="btn btn-primary">Submit</button>
+ </div>
+ 
+</div>
+</div>
+<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.4.1.min.js"></script>
+<script>
+    var name;
+    $('#submit').on('click', () => {
+        name = $('#name').val();
+        location.href = "msg.html";
+    });
+</script>
+</body>
+</html>

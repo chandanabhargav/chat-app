@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    
+</head>
+<body>
+<div class="container">
+ <br>
+ <div class="jumbotron" style="border-radius: 20px;">
+    <div class="text-center"><h4>Messages</h4></div>
+    <div id="messages">
+        
+    </div>
+ <!-- <h1 class="display-4">Register your name</h1> -->
+ <br>
+ Current user name <i><h4 id="name"></h4></i>
+ 
+ <br>
+ <textarea id = "message" class="form-control" autofocus placeholder="Type here ">
+</textarea>
+ <br>
+ <button id="send" class="btn btn-success">Send Message</button>
+ </div>
+ 
+</div>
+<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.4.1.min.js"></script>
+
+<script src="/socket.io/socket.io.js"></script>
+<script>
+    $('#name').html(name);
+
+    var socket = io();
+    socket.on('message', addMessage);
+
+    $(() => {
+        $("#send").click(()=>{
+            sendMessage({
+                name: $("#name").html(), 
+                message:$("#message").val()});
+        });
+        getMessages();
+    })
+
+    function sendMessage(message){
+        $.post('http://localhost:3000/messages', message)
+    }
+    
+    function addMessage(msg){
+    $("#messages").append(`
+        <i><h5 style="color: #6ab5ff;"> ${msg.name} </h5></i>
+        <p>  ${msg.message} </p><hr>`);
+    $('#message').val('');
+    }
+    
+    function getMessages(){
+        $.get('http://localhost:3000/messages', (data) => {
+            data.forEach(addMessage);
+        })
+    }
+
+</script>
+
+</body>
+</html>
